@@ -1,9 +1,16 @@
+/* 
+
+Do note this was stylized on a
+
+*/
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 main {
+  margin: auto;
   margin-bottom: 3em;
 }
 
@@ -73,6 +80,7 @@ footer {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  column-gap: 10em;
 }
 
 #circles div {
@@ -80,4 +88,5 @@ footer {
   max-height: 1.5em;
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
