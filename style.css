@@ -3,6 +3,81 @@ html, body {
   padding: 0;
 }
 
+main {
+  margin-bottom: 3em;
+}
+
+main > h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
 canvas {
   display: block;
+  margin: auto;
+}
+
+#showcase {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  border: 0.25em double black;
+  row-gap: 0.5em;
+
+  width: 95%;
+  margin: auto;
+  padding: 1em;
+}
+
+#showcase > div {
+  width: 49.75%;
+  margin: auto;
+}
+
+#showcase > div > h3 {
+  text-align: center;
+  font-size: x-large;
+}
+
+#showcase > div > p {
+  text-indent: 1em;
+  padding-top : 0.5em;
+  padding-bottom: 0.5em;
+  line-height: 1.25;
+  width: 90%;
+  margin: auto;
+}
+
+footer {
+  width: 95%;
+  margin: auto;
+  margin-bottom: 2em;
+  border: 0.25em double black;
+  padding: 1em;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#bgText {
+  border: 0.25em solid black;
+  padding-right: 10em;
+}
+
+#circles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#circles div {
+  border: thin solid black;
+  max-height: 1.5em;
+  display: flex;
+  align-items: center;
 }
