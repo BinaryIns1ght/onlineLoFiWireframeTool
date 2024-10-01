@@ -57,34 +57,7 @@ canvas {
   margin: auto;
 }
 
-footer {
-  width: 95%;
-  margin: auto;
-  margin-bottom: 2em;
-  border: 0.25em double black;
-  padding: 1em;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-#bgText {
-  padding-right: 10em;
-}
-
-#circles {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 10em;
-}
-
-#circles div {
-  max-height: 1.5em;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+footer{ 
+  padding: 3em;
+  margin-bottom: 3em;
 }
