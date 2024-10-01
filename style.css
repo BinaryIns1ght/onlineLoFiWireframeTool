@@ -71,7 +71,6 @@ footer {
 }
 
 #bgText {
-  border: 0.25em solid black;
   padding-right: 10em;
 }
 
@@ -84,7 +83,6 @@ footer {
 }
 
 #circles div {
-  border: thin solid black;
   max-height: 1.5em;
   display: flex;
   align-items: center;
