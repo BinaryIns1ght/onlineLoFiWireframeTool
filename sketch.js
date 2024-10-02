@@ -8,7 +8,7 @@ Do note this was stylized on a 2560 x 1600 px, so sorry if elements are disorgan
 let circleT1, circleX, circleY, circleS, circleC, circleB, buttonCircle, circleT2, circleT3, circleBW, circleT4;
 
 // Rectangle/Square variables
-let rectT1, rectT2, rectT3, rectT4, rectX, rectY, rectL, rectW, rectC, rectB, rectBW;
+let rectT1, rectT2, rectT3, rectT4, rectX, rectY, rectL, rectH, rectC, rectB, rectBW, buttonRect;
 
 function setup() {
   createCanvas(1600, 900);
@@ -23,6 +23,8 @@ function setup() {
   circleT3.position(length+800, height*1.52);
   circleT4 = createDiv('Circle Border Weight:');
   circleT4.position(length+1075, height*1.52);
+  rectT1 = createDiv('Rectangle/Square Parameters:');
+  rectT1.position(length+40, height*1.575);
   
   // User input for circle x-coordinate
   circleX = createInput('X-Coordinate, up to 1600');
@@ -69,17 +71,26 @@ function setup() {
   buttonCircle = createButton('Make a circle');
   buttonCircle.position(length+1290, height*1.52);
   buttonCircle.mousePressed(makeCircle);
+
+  rectX = createInput('X-Coordinate, up to 1600');
+  rectX.position(length+40, height*1.61);
+  rectX.size(160,15);
+
+  rectY = createInput('Y-Coordinate, up to 900');
+  rectY.size(160,15);
+  rectY.position(length+220, height*1.61);
+
+  rectL = createInput('Quad Length');
+  rectL.size(130,15);
+  rectL.position(length+400, height*1.61);
+
+  rectH = createInput('Quad Height');
+  rectH.size(130,15);
+  rectH.position(length+550, height*1.61);
 }
 
 function mousePressed() {
-  let hoverShape = false;
-
-  for(let h =  shape.length - 1; h >=0; h--) {
-    if(shape[h].hovering(mouseX, mouseY)) {
-      shape.splice(h,1);
-      hoverShape = true;
-    }
-  }
+  
 }
 
 function draw() {}
