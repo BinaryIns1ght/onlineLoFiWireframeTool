@@ -5,10 +5,8 @@ This is meant for school work or for businesses. Feel comfortable using this too
 
 ## Includes:
 - Color pickers to change how the wireframe is present. This includes:
->- Background
 >- Outline of shapes
 >- Shape fill (or color of the inside of the shape)
 >- Text
 - The ability to drag the shape if you don't like the current placing of the shape.
-- Right-Clicking a shape/text can delete them
 - A button to save the sketch (including the text)

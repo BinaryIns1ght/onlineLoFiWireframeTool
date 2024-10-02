@@ -9,6 +9,7 @@ html, body {
   padding: 0;
 }
 
+/* Sets up top of the page */
 main {
   margin: auto;
   margin-bottom: 3em;
@@ -19,11 +20,13 @@ main > h1 {
   margin-bottom: 1em;
 }
 
+/* Sets up the canvas and places it in the middle */
 canvas {
   display: block;
   margin: auto;
 }
 
+/* Organizes the top part of the page */
 #showcase {
   display: flex;
   align-items: stretch;
@@ -57,6 +60,7 @@ canvas {
   margin: auto;
 }
 
+/* Sets up the bottom of the page */
 footer{ 
   padding: 3em;
   margin-bottom: 20em;
