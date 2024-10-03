@@ -4,6 +4,9 @@ Do note this was stylized on a 2560 x 1600 px, so sorry if elements are disorgan
 
 */
 
+// Shape Arrays
+let shape = [];
+
 // Circle variables
 let circleT1, circleX, circleY, circleS, circleC, circleB, buttonCircle, circleT2, circleT3, circleBW, circleT4;
 
@@ -14,7 +17,7 @@ function setup() {
   createCanvas(1600, 900);
   background(245);
 
-  // Creates labels
+  // Creates labels for some elements
   circleT1 = createDiv('Circle Parameters:');
   circleT1.position(length+40, height*1.475);
   circleT2 = createDiv('Circle Color:');
@@ -72,23 +75,28 @@ function setup() {
   buttonCircle.position(length+1290, height*1.52);
   buttonCircle.mousePressed(makeCircle);
 
+  // Input for rectangle/square x-coordinate
   rectX = createInput('X-Coordinate, up to 1600');
   rectX.position(length+40, height*1.61);
   rectX.size(160,15);
 
+  // Input for rectangle/square y-coordinate
   rectY = createInput('Y-Coordinate, up to 900');
   rectY.size(160,15);
   rectY.position(length+220, height*1.61);
 
-  rectL = createInput('Quad Length');
+  // Input for rectangle/square length/width
+  rectL = createInput('Rect Length');
   rectL.size(130,15);
   rectL.position(length+400, height*1.61);
 
-  rectH = createInput('Quad Height');
+  // Input for rectangle/square height
+  rectH = createInput('Rect Height');
   rectH.size(130,15);
   rectH.position(length+550, height*1.61);
 }
 
+// Function when user clicks on shape, it deletes it.
 function mousePressed() {
   
 }
@@ -97,20 +105,32 @@ function draw() {}
 
 // This function is meant to grab some of the user's inputs and make a circle based off of them
 function makeCircle() {
-  // Readying the variables
-  let f1, f2, f3, f4, f5, f6;
-
   // Collect values from user's inputs
-  f1 = circleX.value();
-  f2 = circleY.value();
-  f3 = circleS.value();
-  f4 = circleC.value();
-  f5 = circleB.value();
-  f6 = circleBW.value();
+  let f1 = circleX.value();
+  let f2 = circleY.value();
+  let f3 = circleS.value();
+  let f4 = circleC.value();
+  let f5 = circleB.value();
+  let f6 = circleBW.value();
 
   // Displays the circle with the user's inputs
   strokeWeight(f6);
   stroke(f5);
   fill(f4);
   circle(f1, f2, f3);
+
+  let newCircle = new Circle(f1, f2, f3, f4, f5, f6);
+  shape.push(newCircle);
+  print(shape);
+}
+
+class Circle {
+  constructor(a1, a2, a3, a4, a5, a6) {
+    this.x = a1;
+    this.y = a2;
+    this.size = a3;
+    this.colorFill = a4;
+    this.borderColor = a5; 
+    this.borderWeight = a6;
+  }
 }
