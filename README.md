@@ -10,3 +10,6 @@ This is meant for school work or for businesses. Feel comfortable using this too
 >- Text
 - The ability to drag the shape if you don't like the current placing of the shape.
 - A button to save the sketch (including the text)
+
+### Disclaimer
+Do Note this project was made in a 2560 x 1600 px screen
