@@ -208,7 +208,7 @@ function setup() {
   // Button to send user input data for the program
   buttonTri = createButton('Make a triangle');
   buttonTri.position(length+900, height*1.765);
-  buttonTri.mousePressed(makeRect);
+  buttonTri.mousePressed(makeTri);
 }
 
 // Function when user clicks on shape, it deletes it.
