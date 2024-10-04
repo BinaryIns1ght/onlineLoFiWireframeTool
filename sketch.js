@@ -24,7 +24,6 @@ buttonTri;
 
 function setup() {
   createCanvas(1600, 900);
-  background(245);
 
   // Labels separating different sections 
   circleT1 = createDiv('Circle Parameters:');
@@ -209,14 +208,42 @@ function setup() {
   buttonTri = createButton('Make a triangle');
   buttonTri.position(length+900, height*1.765);
   buttonTri.mousePressed(makeTri);
+
+  
+}
+
+function draw() {
+  background(245);
+
+  for(let s = 0; s < shape.length; s++) {
+    shape[s].show();
+  }
 }
 
 // Function when user clicks on shape, it deletes it.
 function mousePressed() {
-  
-}
+  for(let i=0; i<shape.length; i++){
+    let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
+    let radius = shape[i].size/2;
+    if(circleHover < radius) {
+      shape.splice(i,1);
+    }
 
-function draw() {}
+    let rectHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
+    if(rectHover < shape[i].length && rectHover < shape[i].height) {
+      shape.splice(i,1);
+    }
+
+    // let triHover1 = dist(shape[i].x1, shape[i].y1, shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
+    // let triHover2 = dist(mouseX, mouseY, triHover1);
+
+    // if(triHover2 < triHover1 && triHover2 < triHover1){
+    //   shape.splice(i,1);
+    // }
+
+    
+  }
+}
 
 // This function is meant to grab some of the user's inputs and make a circle based off of them
 function makeCircle() {
@@ -228,16 +255,11 @@ function makeCircle() {
   let f5 = circleB.value();
   let f6 = circleBW.value();
 
-  // Displays the circle with the user's inputs
-  stroke(f5);
-  strokeWeight(f6);
-  fill(f4);
-  circle(f1, f2, f3);
-
   // Makes a new object using the user's inputs
   let newCircle = new Circle(f1, f2, f3, f4, f5, f6);
   shape.push(newCircle);
   print(shape);
+  
 }
 
 // function to use the user's inputs to make a rectangle/square shape
@@ -250,12 +272,6 @@ function makeRect() {
   let r5 = rectC.value();
   let r6 = rectB.value();
   let r7 = rectBW.value();
-
-  // Displays the rectangle/square using the user's inputs
-  stroke(r6);
-  strokeWeight(r7);
-  fill(r5);
-  rect(r1,r2,r3,r4);
 
   // Makes a new object using the user's inputs
   let newRect = new Rectangle(r1,r2,r3,r4,r5,r6,r7);
@@ -276,12 +292,6 @@ function makeTri() {
   let t8 = triB.value();
   let t9 = triBW.value();
 
-  // Use user inputs to make triangle 
-  stroke(t8);
-  strokeWeight(t9)
-  fill(t7);
-  triangle(t1,t2,t3,t4,t5,t6);
-
   // Makes new object with user inputs
   let newTri = new Triangle(t1,t2,t3,t4,t5,t6,t7,t8,t9);
   shape.push(newTri);
@@ -297,6 +307,14 @@ class Circle {
     this.borderColor = a5; 
     this.borderWeight = a6;
   }
+
+  show(){
+    // Displays the circle with the user's inputs
+    stroke(this.borderColor);
+    strokeWeight(this.borderWeight);
+    fill(this.colorFill);
+    circle(this.x, this.y, this.size);
+  }
 }
 
 class Rectangle {
@@ -309,6 +327,14 @@ class Rectangle {
     this.borderColor = b6;
     this.borderWeight = b7;
   }
+
+  show(){
+    // Displays the rectangle/square using the user's inputs
+    stroke(this.borderColor);
+    strokeWeight(this.borderWeight);
+    fill(this.colorFill);
+    rect(this.x,this.y,this.length,this.height);
+  }
 }
 
 class Triangle {
@@ -317,10 +343,18 @@ class Triangle {
     this.y1 = c2;
     this.x2 = c3;
     this.y2 = c4;
-    this.x3= c5;
+    this.x3 = c5;
     this.y3 = c6;
     this.colorFill = c7;
     this.borderColor = c8;
     this.borderWeight = c9;
+  }
+
+  show(){
+    // Use user inputs to make triangle 
+    stroke(this.borderColor);
+    strokeWeight(this.borderWeight)
+    fill(this.colorFill);
+    triangle(this.x1,this.y1,this.x2,this.y2,this.x3,this.y3);
   }
 }
