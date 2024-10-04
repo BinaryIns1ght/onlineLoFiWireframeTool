@@ -22,11 +22,17 @@ let triT1, triT2, triT3, triT4,
 triX1, triX2, triX3, triY1, triY2, triY3, triC, triB, triBW,
 buttonTri;
 
+// Text Variables
+let textT1, textT2, textT3, textT4, textT5, textT6, textT7,
+textStr, textX, textY, textMwidth, textMheight, textF, textA, textS, textC, textB, textBW,
+buttonText;
+
 // Bell Sound Effect Variable
-let ding;
+let ding, oof;
 
 function preload(){
   ding = loadSound('bellDing.mp3');
+  oof = loadSound('oofed.mp3');
 }
 
 function setup() {
@@ -39,6 +45,8 @@ function setup() {
   rectT1.position(length+40, height*1.575);
   triT1 = createDiv('Triangle Parameters:');
   triT1.position(length+40, height*1.69);
+  textT1 = createDiv('Text Parameters:');
+  textT1.position(length+40, height*1.81)
   
   // User input for circle x-coordinate
   circleX = createInput('X-Coordinate');
@@ -216,6 +224,36 @@ function setup() {
   buttonTri.position(length+900, height*1.765);
   buttonTri.mousePressed(makeTri);
 
+  // User input for text 
+  textStr = createInput('Insert Text Here');
+  textStr.position(length+40, height*1.85);
+  textStr.size(1500,30);
+  
+  // input for text x-coordinate
+  textX = createInput('Txt X-Coords');
+  textX.position(length+40, height*1.91);
+  textX.size(120,20);
+
+  // Input for text y-coordinate
+  textY = createInput('Txt Y-Coords');
+  textY.position(length+180, height*1.91);
+  textY.size(120,20);
+
+  // Input for text's maximum width
+  textMwidth = createInput('Txt Max Width');
+  textMwidth.position(length+320, height*1.91);
+  textMwidth.size(120,20);
+
+  // Input for text's maximum height
+  textMheight = createInput('Txt Max Height');
+  textMheight.position(length+460, height*1.91);
+  textMheight.size(120,20);
+
+  // Selector for text's font
+  textT2 = createDiv('Text Font Family');
+  textT2.position(length+600, height*1.91);
+  textF = createSelect();
+  textF.position(length+750, height*1.91);
   
 }
 
@@ -233,13 +271,13 @@ function doubleClicked() {
     let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let radius = shape[i].size/2;
     if(circleHover < radius) {
-      ding.play();
+      oof.play();
       shape.splice(i,1);
     }
 
     let rectHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     if(rectHover < shape[i].length && rectHover < shape[i].height) {
-      ding.play();
+      oof.play();
       shape.splice(i,1);
     }
 
@@ -250,7 +288,7 @@ function doubleClicked() {
     let triHover5 = dist(shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
     let triHover6 = dist(shape[i].x1, shape[i].y1, shape[i].x3, shape[i].y3);
     if(triHover1 < triHover4 && triHover2 < triHover5 && triHover3 < triHover6) {
-      ding.play();
+      oof.play();
       shape.splice(i,1);
     }
   }
