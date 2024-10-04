@@ -23,7 +23,7 @@ triX1, triX2, triX3, triY1, triY2, triY3, triC, triB, triBW,
 buttonTri;
 
 function setup() {
-  createCanvas(1600, 900);
+  createCanvas(windowWidth, 900);
 
   // Labels separating different sections 
   circleT1 = createDiv('Circle Parameters:');
@@ -34,7 +34,7 @@ function setup() {
   triT1.position(length+40, height*1.69);
   
   // User input for circle x-coordinate
-  circleX = createInput('X-Coordinate, up to 1600');
+  circleX = createInput('X-Coordinate');
   circleX.position(length+40, height*1.52);
   circleX.size(160,15);
 
@@ -86,7 +86,7 @@ function setup() {
   buttonCircle.mousePressed(makeCircle);
 
   // Input for rectangle/square x-coordinate
-  rectX = createInput('X-Coordinate, up to 1600');
+  rectX = createInput('X-Coordinate');
   rectX.position(length+40, height*1.61);
   rectX.size(160,15);
 
@@ -221,7 +221,7 @@ function draw() {
 }
 
 // Function when user clicks on shape, it deletes it.
-function mousePressed() {
+function doubleClicked() {
   for(let i=0; i<shape.length; i++){
     let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let radius = shape[i].size/2;
@@ -234,14 +234,15 @@ function mousePressed() {
       shape.splice(i,1);
     }
 
-    // let triHover1 = dist(shape[i].x1, shape[i].y1, shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
-    // let triHover2 = dist(mouseX, mouseY, triHover1);
-
-    // if(triHover2 < triHover1 && triHover2 < triHover1){
-    //   shape.splice(i,1);
-    // }
-
-    
+    let triHover1 = dist(mouseX, mouseY, shape[i].x1,shape[i].y1);
+    let triHover2 = dist(mouseX, mouseY, shape[i].x2,shape[i].y2);
+    let triHover3 = dist(mouseX, mouseY, shape[i].x3,shape[i].y3);
+    let triHover4 = dist(shape[i].x1, shape[i].y1, shape[i].x2, shape[i].y2);
+    let triHover5 = dist(shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
+    let triHover6 = dist(shape[i].x1, shape[i].y1, shape[i].x3, shape[i].y3);
+    if(triHover1 < triHover4 && triHover2 < triHover5 && triHover3 < triHover6) {
+      shape.splice(i,1);
+    }
   }
 }
 
@@ -259,7 +260,6 @@ function makeCircle() {
   let newCircle = new Circle(f1, f2, f3, f4, f5, f6);
   shape.push(newCircle);
   print(shape);
-  
 }
 
 // function to use the user's inputs to make a rectangle/square shape
