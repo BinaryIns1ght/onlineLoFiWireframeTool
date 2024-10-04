@@ -22,6 +22,13 @@ let triT1, triT2, triT3, triT4,
 triX1, triX2, triX3, triY1, triY2, triY3, triC, triB, triBW,
 buttonTri;
 
+// Bell Sound Effect Variable
+let ding;
+
+function preload(){
+  ding = loadSound('bellDing.mp3');
+}
+
 function setup() {
   createCanvas(windowWidth, 900);
 
@@ -226,11 +233,13 @@ function doubleClicked() {
     let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let radius = shape[i].size/2;
     if(circleHover < radius) {
+      ding.play();
       shape.splice(i,1);
     }
 
     let rectHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     if(rectHover < shape[i].length && rectHover < shape[i].height) {
+      ding.play();
       shape.splice(i,1);
     }
 
@@ -241,6 +250,7 @@ function doubleClicked() {
     let triHover5 = dist(shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
     let triHover6 = dist(shape[i].x1, shape[i].y1, shape[i].x3, shape[i].y3);
     if(triHover1 < triHover4 && triHover2 < triHover5 && triHover3 < triHover6) {
+      ding.play();
       shape.splice(i,1);
     }
   }
@@ -248,6 +258,9 @@ function doubleClicked() {
 
 // This function is meant to grab some of the user's inputs and make a circle based off of them
 function makeCircle() {
+  // Prioritize the sound effect
+  ding.play();
+
   // Collect values from user's inputs
   let f1 = circleX.value();
   let f2 = circleY.value();
@@ -264,6 +277,9 @@ function makeCircle() {
 
 // function to use the user's inputs to make a rectangle/square shape
 function makeRect() {
+  // Prioritize the sound effect
+  ding.play();
+
   // grabs user input value and defines new variables with them
   let r1 = rectX.value();
   let r2 = rectY.value();
@@ -281,6 +297,9 @@ function makeRect() {
 
 // Function to make a triangle with user inputs
 function makeTri() {
+  // Prioritize the sound effect
+  ding.play();
+
   // sets up variables with user input data
   let t1 = triX1.value();
   let t2 = triY1.value();
