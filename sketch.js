@@ -310,6 +310,7 @@ function setup() {
   textB.option('blue');
   textB.option('purple');
   textB.option('pink');
+  textB.option('brown');
 
   // Text border weight (Default is 1);
   textT7 = createDiv('Text Border Weight:');

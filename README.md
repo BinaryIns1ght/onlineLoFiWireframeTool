@@ -7,9 +7,21 @@ This is meant for school work or for businesses. Feel comfortable using this too
 - Color pickers to change how the wireframe is present. This includes:
 >- Outline of shapes
 >- Shape fill (or color of the inside of the shape)
+>- Shape stroke/border (Both color and weight)
+>- Shape Position
+
 >- Text
-- The ability to drag the shape if you don't like the current placing of the shape.
+>- Text Position
+>- Text Typeface
+>- Text Color
+>- Text Outline (Weight and Color)
+
+>- Click to delete shape
+>- Sound effects to show if the shape is created/deleted
+
 - A button to save the sketch (including the text)
 
+(A selector to set on what file type the canvas is)
+
 ### Disclaimer
-Do Note this project was made in a 2560 x 1600 px screen
+Do Note this project was made in a 2560 x 1600 px screen, so apologizes if some elements are misplaced
