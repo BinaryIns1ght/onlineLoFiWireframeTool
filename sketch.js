@@ -27,6 +27,9 @@ let textT1, textT2, textT3, textT4, textT5, textT6, textT7, textT8,
 textStr, textX, textY, textF, textA, textS, textC, textB, textBW, textSt,
 buttonText;
 
+// Save the canvas variable
+let saveT, buttonSave, savePS;
+
 // Bell Sound Effect Variable
 let ding, oof;
 
@@ -241,9 +244,9 @@ function setup() {
 
   // Selector for text's font (Default is serif)
   textT2 = createDiv('Text Font Family:');
-  textT2.position(length+600, height*1.91);
+  textT2.position(length+320, height*1.91);
   textF = createSelect();
-  textF.position(length+750, height*1.91);
+  textF.position(length+440, height*1.91);
   textF.size(150,20);
   textF.option('serif');
   textF.option('sans-serif');
@@ -265,34 +268,33 @@ function setup() {
 
   // Select for text alignment (Default is LEFT)
   textT3 = createDiv('Text Align:');
-  textT3.position(length+920, height*1.91);
+  textT3.position(length+600, height*1.91);
   textA = createSelect();
-  textA.position(length+1000, height*1.91);
+  textA.position(length+680, height*1.91);
   textA.size(120,20);
   textA.option(LEFT);
   textA.option(CENTER);
   textA.option(RIGHT);
 
-  // Space for the user input for text size.
+  // Space for the user input for text size. (Default is 100px)
   textT4 = createDiv('Text Size:');
-  textT4.position(length+1150, height*1.91);
-  textS = createInput('Text Point Size');
+  textT4.position(length+820, height*1.91);
+  textS = createInput('100', 'number');
   textS.size(100,20);
-  textS.position(length+1220, height*1.91);
+  textS.position(length+900, height*1.91);
   
-
   // Text color selector
   textT5 = createDiv('Text Color:');
-  textT5.position(length+1280, height*1.91);
+  textT5.position(length+1030, height*1.91);
   textC = createColorPicker('black');
-  textC.position(length+1360, height*(1.91));
+  textC.position(length+1110, height*(1.91));
   textC.size(100,20);
 
   // Text border selector (Default is black)
   textT6 = createDiv('Text Border Color:');
-  textT6.position(length+40, height*1.95);
+  textT6.position(length+1220, height*1.91);
   textB = createSelect();
-  textB.position(length+170, height*1.95);
+  textB.position(length+1350, height*1.91);
   textB.size(100,20);
   textB.option('black');
   textB.option('gray');
@@ -310,10 +312,10 @@ function setup() {
 
   // Text border weight (Default is 1);
   textT7 = createDiv('Text Border Weight:');
-  textT7.position(length+290, height*1.95);
+  textT7.position(length+40, height*1.95);
   textBW = createSelect();
   textBW.size(50,20);
-  textBW.position(length+425, height*1.95);
+  textBW.position(length+180, height*1.95);
   textBW.option(1);
   textBW.option(2);
   textBW.option(3);
@@ -322,10 +324,10 @@ function setup() {
 
   // Text stylization (Default is NORMAL)
   textT8 = createDiv('Text Stylization:');
-  textT8.position(length+500, height*1.95);
+  textT8.position(length+250, height*1.95);
   textSt = createSelect();
   textSt.size(75,20);
-  textSt.position(length+610, height*1.95);
+  textSt.position(length+370, height*1.95);
   textSt.option(NORMAL);
   textSt.option(ITALIC);
   textSt.option(BOLD);
@@ -333,59 +335,19 @@ function setup() {
 
   // Button to geneerate text based off of user inputs
   buttonText = createButton('Generate Text');
-  buttonText.position(length+700, height*1.95);
+  buttonText.position(length+470, height*1.95);
   buttonText.mousePressed(makeTxt);
-}
 
-function makeTxt(){
-  // Prioritize the sound effect
-  ding.play();
+  // Button To Save the canvas
+  saveT = createInput('myCanvasTitle.png');
+  saveT.position(length+40, height*2);
+  buttonSave = createButton('Save Canvas');
+  buttonSave.position(length+220, height*2);
+  buttonSave.mousePressed(canvasSave);
 
-  // Sets up user input data
-  let w1 = textStr.value();
-  let w2 = textX.value();
-  let w3 = textY.value();
-  let w4 = textF.value();
-  let w5 = textA.value();
-  let w6 = textS.value();
-  let w7 = textC.value();
-  let w8 = textB.value(); 
-  let w9 = textBW.value();
-  let w10 = textSt.value();
-
-  // Makes new object with user inputs
-  let newTxt = new Text(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10);
-  shape.push(newTxt);
-  print(shape);
-}
-
-class Text {
-  constructor(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10) {
-    this.str = d1;
-    this.x = d2;
-    this.y = d3;
-    this.fontFamily = d4;
-    this.align = d5;
-    this.point = d6;
-    this.colorFill = d7;
-    this.borderColor = d8;
-    this.borderWeight = d9;
-    this.stylize = d10;
-  }
-
-  // function to make a block of text with user inputs
-  show(){
-    stroke(this.borderColor);
-    strokeWeight(this.borderWeight);
-    fill(this.colorFill);
-    
-    textAlign(this.align);
-    textFont(this.fontFamily);
-    textStyle(this.stylize);
-    textSize(this.point);
-    text(this.str, this.x, this.y);
-    
-  }
+  // A disclaimer for save
+  savePS = createDiv('(Be sure to include the file extension to specify which type of file it is [default is PNG])')
+  savePS.position(length+350, height*2);
 }
 
 function draw() {
@@ -419,6 +381,13 @@ function mousePressed() {
     let triHover5 = dist(shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
     let triHover6 = dist(shape[i].x1, shape[i].y1, shape[i].x3, shape[i].y3);
     if(triHover1 < triHover4 && triHover2 < triHover5 && triHover3 < triHover6) {
+      oof.play();
+      shape.splice(i,1);
+    }
+
+    let textDist = dist(mouseX, mouseY, shape[i].x, shape[i].y);
+    let textLength = textWidth(shape[i].str);
+    if(textDist < textLength){
       oof.play();
       shape.splice(i,1);
     }
@@ -486,6 +455,28 @@ function makeTri() {
   print(shape);
 }
 
+function makeTxt(){
+  // Prioritize the sound effect
+  ding.play();
+
+  // Sets up user input data
+  let w1 = textStr.value();
+  let w2 = textX.value();
+  let w3 = textY.value();
+  let w4 = textF.value();
+  let w5 = textA.value();
+  let w6 = textS.value();
+  let w7 = textC.value();
+  let w8 = textB.value(); 
+  let w9 = textBW.value();
+  let w10 = textSt.value();
+
+  // Makes new object with user inputs
+  let newTxt = new Text(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10);
+  shape.push(newTxt);
+  print(shape);
+}
+
 // Program takes in user inputs with these classes 
 class Circle {
   constructor(a1, a2, a3, a4, a5, a6) {
@@ -504,6 +495,11 @@ class Circle {
     fill(this.colorFill);
     circle(this.x, this.y, this.size);
   }
+}
+
+function canvasSave(){
+  let canvasTitle = saveT.value();
+  save(canvasTitle);
 }
 
 class Rectangle {
@@ -548,3 +544,31 @@ class Triangle {
   }
 }
 
+class Text {
+  constructor(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10) {
+    this.str = d1;
+    this.x = d2;
+    this.y = d3;
+    this.fontFamily = d4;
+    this.align = d5;
+    this.point = d6;
+    this.colorFill = d7;
+    this.borderColor = d8;
+    this.borderWeight = d9;
+    this.stylize = d10;
+  }
+
+  // function to make a block of text with user inputs
+  show(){
+    stroke(this.borderColor);
+    strokeWeight(this.borderWeight);
+    fill(this.colorFill);
+    
+    textAlign(this.align);
+    textFont(this.fontFamily);
+    textStyle(this.stylize);
+    textSize(this.point);
+    text(this.str, this.x, this.y);
+    
+  }
+}
