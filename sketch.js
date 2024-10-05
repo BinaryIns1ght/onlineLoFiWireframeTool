@@ -23,8 +23,8 @@ triX1, triX2, triX3, triY1, triY2, triY3, triC, triB, triBW,
 buttonTri;
 
 // Text Variables
-let textT1, textT2, textT3, textT4, textT5, textT6, textT7,
-textStr, textX, textY, textMwidth, textMheight, textF, textA, textS, textC, textB, textBW,
+let textT1, textT2, textT3, textT4, textT5, textT6, textT7, textT8,
+textStr, textX, textY, textF, textA, textS, textC, textB, textBW, textSt,
 buttonText;
 
 // Bell Sound Effect Variable
@@ -239,22 +239,153 @@ function setup() {
   textY.position(length+180, height*1.91);
   textY.size(120,20);
 
-  // Input for text's maximum width
-  textMwidth = createInput('Txt Max Width');
-  textMwidth.position(length+320, height*1.91);
-  textMwidth.size(120,20);
-
-  // Input for text's maximum height
-  textMheight = createInput('Txt Max Height');
-  textMheight.position(length+460, height*1.91);
-  textMheight.size(120,20);
-
-  // Selector for text's font
-  textT2 = createDiv('Text Font Family');
+  // Selector for text's font (Default is serif)
+  textT2 = createDiv('Text Font Family:');
   textT2.position(length+600, height*1.91);
   textF = createSelect();
   textF.position(length+750, height*1.91);
+  textF.size(150,20);
+  textF.option('serif');
+  textF.option('sans-serif');
+  textF.option('cursive');
+  textF.option('monospace');
+  textF.option('fantasy');
+  textF.option('Arial');
+  textF.option('Times New Roman');
+  textF.option('Courier New');
+  textF.option('Impact');
+  textF.option('Franklin Gothic Medium');
+  textF.option('Gill Sans');
+  textF.option('Lucida Sans');
+  textF.option('Segoe UI');
+  textF.option('Trebuchet MS');
+  textF.option('Verdana');
+  textF.option('Georgia');
+  textF.option('Cambria');
+
+  // Select for text alignment (Default is LEFT)
+  textT3 = createDiv('Text Align:');
+  textT3.position(length+920, height*1.91);
+  textA = createSelect();
+  textA.position(length+1000, height*1.91);
+  textA.size(120,20);
+  textA.option(LEFT);
+  textA.option(CENTER);
+  textA.option(RIGHT);
+
+  // Space for the user input for text size.
+  textT4 = createDiv('Text Size:');
+  textT4.position(length+1150, height*1.91);
+  textS = createInput('Text Point Size');
+  textS.size(100,20);
+  textS.position(length+1220, height*1.91);
   
+
+  // Text color selector
+  textT5 = createDiv('Text Color:');
+  textT5.position(length+1280, height*1.91);
+  textC = createColorPicker('black');
+  textC.position(length+1360, height*(1.91));
+  textC.size(100,20);
+
+  // Text border selector (Default is black)
+  textT6 = createDiv('Text Border Color:');
+  textT6.position(length+40, height*1.95);
+  textB = createSelect();
+  textB.position(length+170, height*1.95);
+  textB.size(100,20);
+  textB.option('black');
+  textB.option('gray');
+  textB.option('lightgray');
+  textB.option('white');
+  textB.option('red');
+  textB.option('orange');
+  textB.option('yellow');
+  textB.option('lime');
+  textB.option('green');
+  textB.option('cyan');
+  textB.option('blue');
+  textB.option('purple');
+  textB.option('pink');
+
+  // Text border weight (Default is 1);
+  textT7 = createDiv('Text Border Weight:');
+  textT7.position(length+290, height*1.95);
+  textBW = createSelect();
+  textBW.size(50,20);
+  textBW.position(length+425, height*1.95);
+  textBW.option(1);
+  textBW.option(2);
+  textBW.option(3);
+  textBW.option(4);
+  textBW.option(5);
+
+  // Text stylization (Default is NORMAL)
+  textT8 = createDiv('Text Stylization:');
+  textT8.position(length+500, height*1.95);
+  textSt = createSelect();
+  textSt.size(75,20);
+  textSt.position(length+610, height*1.95);
+  textSt.option(NORMAL);
+  textSt.option(ITALIC);
+  textSt.option(BOLD);
+  textSt.option(BOLDITALIC);
+
+  // Button to geneerate text based off of user inputs
+  buttonText = createButton('Generate Text');
+  buttonText.position(length+700, height*1.95);
+  buttonText.mousePressed(makeTxt);
+}
+
+function makeTxt(){
+  // Prioritize the sound effect
+  ding.play();
+
+  // Sets up user input data
+  let w1 = textStr.value();
+  let w2 = textX.value();
+  let w3 = textY.value();
+  let w4 = textF.value();
+  let w5 = textA.value();
+  let w6 = textS.value();
+  let w7 = textC.value();
+  let w8 = textB.value(); 
+  let w9 = textBW.value();
+  let w10 = textSt.value();
+
+  // Makes new object with user inputs
+  let newTxt = new Text(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10);
+  shape.push(newTxt);
+  print(shape);
+}
+
+class Text {
+  constructor(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10) {
+    this.str = d1;
+    this.x = d2;
+    this.y = d3;
+    this.fontFamily = d4;
+    this.align = d5;
+    this.point = d6;
+    this.colorFill = d7;
+    this.borderColor = d8;
+    this.borderWeight = d9;
+    this.stylize = d10;
+  }
+
+  // function to make a block of text with user inputs
+  show(){
+    stroke(this.borderColor);
+    strokeWeight(this.borderWeight);
+    fill(this.colorFill);
+    
+    textAlign(this.align);
+    textFont(this.fontFamily);
+    textStyle(this.stylize);
+    textSize(this.point);
+    text(this.str, this.x, this.y);
+    
+  }
 }
 
 function draw() {
@@ -266,7 +397,7 @@ function draw() {
 }
 
 // Function when user clicks on shape, it deletes it.
-function doubleClicked() {
+function mousePressed() {
   for(let i=0; i<shape.length; i++){
     let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let radius = shape[i].size/2;
@@ -355,6 +486,7 @@ function makeTri() {
   print(shape);
 }
 
+// Program takes in user inputs with these classes 
 class Circle {
   constructor(a1, a2, a3, a4, a5, a6) {
     this.x = a1;
@@ -415,3 +547,4 @@ class Triangle {
     triangle(this.x1,this.y1,this.x2,this.y2,this.x3,this.y3);
   }
 }
+

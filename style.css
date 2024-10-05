@@ -63,5 +63,6 @@ canvas {
 /* Sets up the bottom of the page */
 footer{ 
   padding: 3em;
-  margin-bottom: 25em;
+  margin-bottom: 30em;
+  
 }
