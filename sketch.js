@@ -28,7 +28,7 @@ textStr, textX, textY, textF, textA, textS, textC, textB, textBW, textSt,
 buttonText;
 
 // Save the canvas variable
-let saveT, buttonSave, savePS;
+let saveT, buttonSave, savePS, saveFile;
 
 // Bell Sound Effect Variable
 let ding, oof;
@@ -38,6 +38,7 @@ function preload(){
   oof = loadSound('oofed.mp3');
 }
 
+// Creates a set  up to take user input
 function setup() {
   createCanvas(windowWidth, 900);
 
@@ -339,17 +340,29 @@ function setup() {
   buttonText.mousePressed(makeTxt);
 
   // Button To Save the canvas
-  saveT = createInput('myCanvasTitle.png');
+  saveT = createInput('myCanvasTitle');
   saveT.position(length+40, height*2);
+  // Selector for the file type
+  saveFile = createSelect();
+  saveFile.position(length+220, height*2);
+  saveFile.size(75,20);
+  saveFile.option('png');
+  saveFile.option('jpg');
+  saveFile.option('jpeg');
+  saveFile.option('webp');
+  saveFile.option('svg');
+  saveFile.option('gif');
+  saveFile.option('avif');
   buttonSave = createButton('Save Canvas');
-  buttonSave.position(length+220, height*2);
+  buttonSave.position(length+320, height*2);
   buttonSave.mousePressed(canvasSave);
 
   // A disclaimer for save
-  savePS = createDiv('(Be sure to include the file extension to specify which type of file it is [default is PNG])')
-  savePS.position(length+350, height*2);
+  savePS = createDiv('(Be sure to make sure the file type is correct if needed)')
+  savePS.position(length+425, height*2);
 }
 
+// Uses the show function from the classes to display shapes
 function draw() {
   background(245);
 
@@ -360,33 +373,48 @@ function draw() {
 
 // Function when user clicks on shape, it deletes it.
 function mousePressed() {
+  
+  // For loop to read through the list for the specific object added to the array
   for(let i=0; i<shape.length; i++){
+
+    // variables to check if the mouse hovers over circle and defines the radius of the circle
     let circleHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let radius = shape[i].size/2;
+
+    // if statement to ensure the user's mouse is over the circle. deletes circle if arguments are met
     if(circleHover < radius) {
       oof.play();
       shape.splice(i,1);
     }
 
+    // checks if mouse is over rectangle/square
     let rectHover = dist(mouseX, mouseY, shape[i].x, shape[i].y);
+
+    // if statement to check if mouse is over rectangle. deletes rectangle after click
     if(rectHover < shape[i].length && rectHover < shape[i].height) {
       oof.play();
       shape.splice(i,1);
     }
 
+    // variables to record dist between points of triangle and the current mouse pointer coordinate
     let triHover1 = dist(mouseX, mouseY, shape[i].x1,shape[i].y1);
     let triHover2 = dist(mouseX, mouseY, shape[i].x2,shape[i].y2);
     let triHover3 = dist(mouseX, mouseY, shape[i].x3,shape[i].y3);
     let triHover4 = dist(shape[i].x1, shape[i].y1, shape[i].x2, shape[i].y2);
     let triHover5 = dist(shape[i].x2, shape[i].y2, shape[i].x3, shape[i].y3);
     let triHover6 = dist(shape[i].x1, shape[i].y1, shape[i].x3, shape[i].y3);
+
+    // if statement to check on mouse if it is over the triangle and deletes it if clicked
     if(triHover1 < triHover4 && triHover2 < triHover5 && triHover3 < triHover6) {
       oof.play();
       shape.splice(i,1);
     }
 
+    // variables to check distance with mouse pointer and text length
     let textDist = dist(mouseX, mouseY, shape[i].x, shape[i].y);
     let textLength = textWidth(shape[i].str);
+
+    // checks if the mouse is over the text. deletes the text if requirements are met
     if(textDist < textLength){
       oof.play();
       shape.splice(i,1);
@@ -427,7 +455,7 @@ function makeRect() {
   let r6 = rectB.value();
   let r7 = rectBW.value();
 
-  // Makes a new object using the user's inputs
+  // Makes a new object using the user's inputs, prints the array afterwards
   let newRect = new Rectangle(r1,r2,r3,r4,r5,r6,r7);
   shape.push(newRect);
   print(shape);
@@ -449,7 +477,7 @@ function makeTri() {
   let t8 = triB.value();
   let t9 = triBW.value();
 
-  // Makes new object with user inputs
+  // Makes new object with user inputs. after, prints the array into the console
   let newTri = new Triangle(t1,t2,t3,t4,t5,t6,t7,t8,t9);
   shape.push(newTri);
   print(shape);
@@ -471,10 +499,17 @@ function makeTxt(){
   let w9 = textBW.value();
   let w10 = textSt.value();
 
-  // Makes new object with user inputs
+  // Makes new object with user inputs. after, logs the shape array into the Inspect Element console
   let newTxt = new Text(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10);
   shape.push(newTxt);
   print(shape);
+}
+
+// Saves the canvas, using the user input to name the file
+function canvasSave(){
+  let canvasTitle = saveT.value();
+  let canvasFile = saveFile.value();
+  save(canvasTitle+'.'+canvasFile);
 }
 
 // Program takes in user inputs with these classes 
@@ -495,11 +530,6 @@ class Circle {
     fill(this.colorFill);
     circle(this.x, this.y, this.size);
   }
-}
-
-function canvasSave(){
-  let canvasTitle = saveT.value();
-  save(canvasTitle);
 }
 
 class Rectangle {
